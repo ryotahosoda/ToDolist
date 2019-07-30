@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>編集</title>
+    <meta charset="UTF-8">
+    <div th:replace="base"></div>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<div class="borderline">
+    ToDoの内容を変更します<br>
+    <form action="#">
+        <p>ToDoリスト
+            <input type="text" name="todolist"></p>
+        <p>期限
+            <input type="text" name="limit"></p>
+    </form>
+    <button type="button" class="btn btn-primary" onclick="location.href=#" >更新</button>
+</div>
+
+</body>
+</html>
