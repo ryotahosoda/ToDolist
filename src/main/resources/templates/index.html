@@ -22,28 +22,25 @@
 </div>
 
 <button type="button" class="btn btn-primary" onclick="location.href='/edit'" >編集</button>
-<p>データベース</p>
+<h1>データベース</h1>
+
 <table>
-    <tr>
-        <td>Id</td>
-        <td>name</td>
-    </tr>
-    <tr th:each="todo: ${todolist}">
-        <td th:text="${todo.id}"></td>
-        <td th:text="${todo.name}"></td>
-        <td th:text="${todo.limit_date}"></td>
-        <td th:text="${todo.make_date}"></td>
-        <td th:text="${todo.finish}"></td>
-    </tr>
+<tr th:each="todo: ${todolist}">
+    <td th:text="${todo.id}"></td><!-- $をつける-->
+    <td th:text="${todo.name}"></td>
+    <td th:text="${todo.limit_date}"></td>
+    <td th:text="${todo.make_date}"></td>
+    <td th:text="${todo.finish}"></td>
+</tr>
 </table>
-<h1>Form</h1>
-<form action="#" th:action="@{/}" th:object="${todo}" method="post">
-    <p>Id: <input type="text" th:field="${todo.id}" /></p>
-    <p>Name: <input type="text" th:field="${todo.name}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset"></p>
+
+<form method="post" action="/">
+    <input type="text" name="name"><br>
+    <input type="date" name="limit_date"><br>
+    <input type="date" name="make_date"><br>
+    <input type="text" name="finish"><br>
+    <input type="submit">
+
 </form>
-<h1>Result</h1>
-<p th:text="'id: ' + ${todo.id}" />
-<p th:text="'name: ' +${todo.name}" />
 </body>
 </html>

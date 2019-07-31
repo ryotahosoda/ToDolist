@@ -6,35 +6,62 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.BitSet;
 import java.util.Date;
 
 
 @Entity
-@Table(name="todo")
+@Table(name = "todo")
 public class Todo {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    //private Long id;
+    private int id;
     private String name;
     private Date limit_date;
     private Date make_date;
     private Boolean finish;
 
-    public Long getId(){
+    public Todo() {
+        super();
+    }
+
+
+//    public Todo(String name) {
+//        super();
+//        this.name=name;
+////        this.limit_date=limit_date;
+////        this.make_date=make_date;
+////        this.finish=finish;
+//    }
+
+    //日付の処理必要
+    public Todo(String name, Date limit_date, Date make_date, Boolean finish) {
+        super();
+        this.name=name;
+        this.limit_date=limit_date;
+        this.make_date=make_date;
+        this.finish=finish;
+    }
+
+    public int getId(){
         return id;
     }
-    public void setId(Long id){
+    public void setId(int id){
         this.id=id;
     }
+//    public Long getId(){
+//        return id;
+//    }
+//    public void setId(Long id){
+//        this.id=id;
+//    }
     public String getName(){
         return name;
     }
     public void setName(String name){
         this.name=name;
-    }
-    public Date getLimit_date(){
+    }    public Date getLimit_date(){
         return limit_date;
     }
     public void setLimit_date(Date limit_date){
@@ -50,6 +77,7 @@ public class Todo {
     public void setFinish(Boolean finish){
         this.finish=finish;
     }
+
 
 
 }
