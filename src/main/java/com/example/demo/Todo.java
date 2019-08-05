@@ -26,15 +26,6 @@ public class Todo {
         super();
     }
 
-
-//    public Todo(String name) {
-//        super();
-//        this.name=name;
-////        this.limit_date=limit_date;
-////        this.make_date=make_date;
-////        this.finish=finish;
-//    }
-
     //日付の処理必要
     public Todo(String name, Date limit_date, Date make_date, Boolean finish) {
         super();

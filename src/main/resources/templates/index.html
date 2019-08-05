@@ -17,21 +17,44 @@
             <input type="text" name="name"></p><br>
         <p>期限(yyyy/MM/dd)
             <input type="text" name="limit_date"></p><br>
-        <input type="submit" value="ToDoの追加">
+        <input type="submit" name="addTodo" value="ToDoの追加">
     </form>
 </div>
 <button type="button" class="btn btn-primary" onclick="location.href='/edit'" >編集</button>
 <h1>データベース</h1>
 <div class="borderline">
 <table>
-<tr th:each="todo: ${todolist}">
+<tr th:each="todo, stat: ${todolist}">
     <td th:text="${todo.id}"></td><!-- $をつける-->
     <td th:text="${todo.name}"></td>
     <td th:text="${todo.limit_date}"></td>
     <td th:text="${todo.make_date}"></td>
     <td th:text="${todo.finish}"></td>
+    <td th:text="${stat.current}"></td>
 </tr>
 </table>
 </div>
+<table th:each="todo: ${todolist}" border="5" style="border-collapse: collapse" rules="none">
+    <tr>
+        <td th:text="${todo.name}"></td>
+        <form method="post" action="/edit">
+            <td rowspan="3">
+                <input type="submit" value="編集">
+            </td>
+        </form>
+        <form method="post" action="/">
+            <td rowspan="3">
+                <input type="submit" name="finish" value="未完了">
+            </td>
+        </form>
+
+    </tr>
+    <tr>
+        <td th:text="${todo.limit_date}"></td>
+    </tr>
+    <tr>
+        <td th:text="${todo.make_date}"></td>
+    </tr>
+</table>
 </body>
 </html>
