@@ -15,8 +15,7 @@ public class Todo {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //private Long id;
-    private int id;
+    private Long id;
     private String name;
     private Date limit_date;
     private Date make_date;
@@ -35,18 +34,12 @@ public class Todo {
         this.finish=finish;
     }
 
-    public int getId(){
+    public Long getId(){
         return id;
     }
-    public void setId(int id){
+    public void setId(Long id){
         this.id=id;
     }
-//    public Long getId(){
-//        return id;
-//    }
-//    public void setId(Long id){
-//        this.id=id;
-//    }
     public String getName(){
         return name;
     }

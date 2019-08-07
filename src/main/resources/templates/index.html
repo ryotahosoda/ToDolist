@@ -39,12 +39,12 @@
         <td th:text="${todo.name}"></td>
         <form method="post" action="/edit">
             <td rowspan="3">
-                <input type="submit" value="編集">
+                <button type="submit" name="edit" th:value="${todo.id}">編集</button>
             </td>
         </form>
         <form method="post" action="/">
             <td rowspan="3">
-                <input type="submit" name="finish" value="未完了">
+                <button type="submit" name="finish" th:value="${todo.id}">未完了</button>
             </td>
         </form>
 
