@@ -5,10 +5,49 @@
     <title>検索</title>
     <div th:replace="base"></div>
     <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="/script.js" th:src="@{/script.js}"></script>
 </head>
 <body>
-検索画面だよ<br>
-入力フォーム
-<button type="button" class="btn btn-primary" onclick="location.href=#" >更新</button>
+<form method="post" action="/search">
+    <input type="text" name="search_name">
+    <button type="submit" name="search" th:value="search_data">検索</button>
+</form>
+
+<div class="search" th:if="${count} > 0">
+    <p th:text="'Todoが' + ${count} + '件見つかりました'"></p>
+    <table th:each="search: ${data}" border="5" style="border-collapse: collapse" rules="none">
+        <tr>
+            <td th:text="${search.name}"></td>
+            <form method="post" action="/edit">
+                <td rowspan="3">
+                    <button type="submit" name="edit" th:value="${search.id}">編集</button>
+                </td>
+            </form>
+            <form method="post" name="finish" action="/search">
+                <td rowspan="3">
+                    <div th:if="${search.finish}">
+                        <button type="submit" name="finish" th:value="${search.id}">完了</button>
+                        <input type="hidden" name="data" th:value="${data}">
+                    </div>
+                    <div th:unless="${search.finish}">
+                        <button type="submit" name="finish" th:value="${search.id}">未完了</button>
+                        <input type="hidden" name="data" th:value="${data}">
+                    </div>
+                </td>
+            </form>
+        </tr>
+        <tr>
+            <td th:text="${search.limit_date}"></td>
+        </tr>
+        <tr>
+            <td th:text="${search.make_date}"></td>
+        </tr>
+    </table>
+</div>
+<div th:if="${count} == 0">
+    <p>対象のTodoは見つかりません</p>
+</div>
+<div th:if="${count} == -1">
+</div>
 </body>
 </html>

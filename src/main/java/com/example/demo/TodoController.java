@@ -8,13 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
-import com.example.demo.TodoService;
-
 
 @Controller
 public class TodoController{
@@ -22,12 +19,12 @@ public class TodoController{
     //最初の呼び出し
     @Autowired
     TodoRepository todoRepository;
+    @Autowired
     TodoService todoService;
     @RequestMapping(value = "/")
     public String index(Model model){
         List todo=todoRepository.findAll();
         model.addAttribute("todolist", todo);
-        //System.out.println(todo);
         return "index";
     }
 
@@ -35,37 +32,82 @@ public class TodoController{
     @PostMapping(value = "/" ,params = "addTodo")
     public String todoRegister(Model model,
                                @RequestParam("name") String name,
-                               @RequestParam("limit_date") @DateTimeFormat(pattern = "yyyy/MM/dd") Date limit_date)
-    {
-        Date make_date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        Todo todo = new Todo(name,limit_date,make_date, false);
+                               @RequestParam("limit_date") String limit_date) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+        String make_date = sdf.format(new Date());
+        Date makedate = sdf.parse(make_date);
+        Date limitdate = sdf.parse(limit_date);
+        Todo todo = new Todo(name,limitdate,makedate, false);
         todoRepository.saveAndFlush(todo);//レポジトリに保存する
         List Todo=todoRepository.findAll();
         model.addAttribute("todolist", Todo);
         return "index";
     }
 
-    //未完了、完了を押したとき
+    //未完了、完了を押したとき　8/8 ok
     @PostMapping(value = "/" ,params = "finish")
     public String finish(Model model,  @RequestParam("finish") Long id){
-        System.out.println(id);
-        Todo update = todoService.updateFinish(id);
-        List todo=(List) todoRepository.findAll();
+        Todo a = todoService.updateFinish(id);//aいらない？？
+        List todo = todoRepository.findAll();
         model.addAttribute("todolist", todo);
         return "index";
     }
 
     @RequestMapping("/edit")
-    public String edit(@RequestParam("edit") String  a){
-        System.out.println(a);
-        return "/edit";
+    public String edit(Model model, @RequestParam("edit") Long id){
+        Todo todo = todoService.getTodo(id);
+        model.addAttribute("todolist", todo);
+        return "edit";
+    }
+
+    //更新する　8/8 ok
+    @PostMapping(value = "/",params = "update")
+    public String update(Model model,
+                         @RequestParam("update") Long id,
+                         @RequestParam("name") String name,
+                         @RequestParam("limit_date") @DateTimeFormat(pattern = "yyyy/MM/dd") Date limit_date){
+        Todo a =todoService.updateNameandLimitDate(id,name,limit_date);
+        List todo = todoRepository.findAll();
+        model.addAttribute("todolist", todo);
+        return "index";
     }
 
     @RequestMapping("/search")
-    public String search(){
-        return "/search";
+    public String search(Model model){
+        int count = -1;
+        model.addAttribute("count",count);
+        return "search";
     }
+
+    @PostMapping(value = "/search", params = "search")
+    public String search_preview(Model model,@RequestParam("search_name") String name){
+        StringBuilder buf = new StringBuilder();//後で関数にわける
+        buf.append("%");
+        buf.append(name);
+        buf.append("%");
+        List todo = todoRepository.findByNameLikeAndFinish(buf.toString(), false);
+        System.out.println("before update finish");
+        System.out.println(todo);
+        int count = todo.size();
+        model.addAttribute("data", todo);
+        model.addAttribute("count",count);
+        return "search";
+    }
+
+    @PostMapping(value = "/search", params = "finish")
+    public String search_finish(Model model, @RequestParam("finish") Long id,@RequestParam("data")List todo){
+        todoService.updateFinish(id);
+        int count = todo.size();
+        model.addAttribute("data", todo);
+        System.out.println("update finish");
+        model.addAttribute("count",count);
+        return "search";
+    }
+
+//    @PostMapping(value = "/search", params = "finish")
+//    public void search_finish(Model model, @RequestParam("finish") Long id){
+//        todoService.updateFinish(id);
+//    }
 
 }
 

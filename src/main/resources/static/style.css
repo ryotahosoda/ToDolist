@@ -1,5 +1,19 @@
-.borderline{
-    border: 4px double  #000000;
-    margin: 2em 0;
-    padding: 2em;
-    }
+input.nameToDo{
+width:70%;
+align:left;
+}
+
+input.limitToDo{
+width:70%;
+align:left;
+}
+
+input.addToDo{
+padding: 15px 30px;
+font-size: 1.5em;
+font-weight: bold;
+width:50%;
+height:200%;
+background-color:#248
+color:black;
+}

@@ -9,13 +9,13 @@
 <body>
 <div class="borderline">
     ToDoの内容を変更します<br>
-    <form action="#">
+    <form method="post" action="/">
         <p>ToDoリスト
-            <input type="text" name="todolist"></p>
+            <input type="text" name="name" th:value="${todolist.name}"></p>
         <p>期限
-            <input type="text" name="limit"></p>
+            <input type="text" name="limit_date" th:value="${todolist.limit_date}"></p>
+        <button type="submit" name="update" th:value="${todolist.id}">更新</button>
     </form>
-    <button type="button" class="btn btn-primary" onclick="location.href=#" >更新</button>
 </div>
 
 </body>

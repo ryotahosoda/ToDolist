@@ -5,7 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,18 +17,18 @@ public class TodoService {
 
     @Transactional
     public Todo getTodo(Long id){
-        Todo todo = todoRepository.findById(id).get();
+        Todo todo = todoRepository.getOne(id);
         if (todo==null){
             System.out.println("nullです");
-            System.out.println(todo);
             return todo;
+            //未実装
         }
-        System.out.println(todo);
         return todo;
     }
 
     @Transactional
     public List<Todo> getTodoAll(){
+
         return todoRepository.findAll(new Sort(Sort.Direction.ASC, "make_date"));
     }
 
@@ -54,7 +53,7 @@ public class TodoService {
 
     @Transactional
     public Todo updateFinish(Long id){
-        Todo todo = getTodo(id);c
+        Todo todo = getTodo(id);
         if (todo.getFinish()==false){
             todo.setFinish(true);
         }

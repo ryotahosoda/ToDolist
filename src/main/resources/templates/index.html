@@ -5,38 +5,65 @@
     <meta charset="UTF-8">
     <div th:replace="base"></div>
     <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="/script.js" th:src="@{/script.js}"></script>
 </head>
 <div id="header"></div>
 <h2>
     Todoリスト
 </h2>
-<div class="borderline">
-    <p>新しいToDoを作成する</p>
+
+<table border="1" bordercolor="black" width="85%" align="center" style="border-collapse: collapse" rules="none">
     <form method="post" action="/">
-        <p>ToDo名
-            <input type="text" name="name"></p><br>
-        <p>期限(yyyy/MM/dd)
-            <input type="text" name="limit_date"></p><br>
-        <input type="submit" name="addTodo" value="ToDoの追加">
-    </form>
-</div>
-<button type="button" class="btn btn-primary" onclick="location.href='/edit'" >編集</button>
-<h1>データベース</h1>
-<div class="borderline">
-<table>
-<tr th:each="todo, stat: ${todolist}">
-    <td th:text="${todo.id}"></td><!-- $をつける-->
-    <td th:text="${todo.name}"></td>
-    <td th:text="${todo.limit_date}"></td>
-    <td th:text="${todo.make_date}"></td>
-    <td th:text="${todo.finish}"></td>
-    <td th:text="${stat.current}"></td>
-</tr>
-</table>
-</div>
-<table th:each="todo: ${todolist}" border="5" style="border-collapse: collapse" rules="none">
     <tr>
-        <td th:text="${todo.name}"></td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+    </tr>
+    <tr>
+        <td>&nbsp; </td>
+        <td colspan="2">新しいToDoを作成する</td>
+        <td>&nbsp;</td>
+        <td>&nbsp; </td>
+    </tr>
+    <tr>
+        <td>&nbsp; </td>
+        <td width="15%">ToDo名</td>
+        <td><input class="nameToDo" type="text" name="name"></td>
+        <td rowspan="2"><input class="addToDo" type="submit" name="addTodo" value="ToDoの追加"></td>
+        <td>&nbsp; </td>
+    </tr>
+    <tr>
+        <td>&nbsp; </td>
+        <td>期限(yyyy年MM月dd日)</td>
+        <td><input class="limitToDo" type="text" name="limit_date"></td>
+        <td>&nbsp; </td>
+    </tr>
+    <tr>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+    </tr>
+    </form>
+</table>
+
+<table th:each="todo: ${todolist}" border="1" bordercolor="black" style="border-collapse: collapse" rules="none" width="85%" align="center">
+    <tr>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+    </tr>
+    <tr>
+        <td>&nbsp; </td>
+        <td colspan="2" th:text="${todo.name}"></td>
+        <td>&nbsp; </td>
         <form method="post" action="/edit">
             <td rowspan="3">
                 <button type="submit" name="edit" th:value="${todo.id}">編集</button>
@@ -44,17 +71,40 @@
         </form>
         <form method="post" action="/">
             <td rowspan="3">
-                <button type="submit" name="finish" th:value="${todo.id}">未完了</button>
+                <div th:if="${todo.finish}">
+                    <button type="submit" name="finish" th:value="${todo.id}">完了</button>
+                </div>
+                <div th:unless="${todo.finish}">
+                    <button type="submit" name="finish" th:value="${todo.id}">未完了</button>
+                </div>
             </td>
+            <td>&nbsp; </td>
         </form>
-
     </tr>
     <tr>
-        <td th:text="${todo.limit_date}"></td>
+        <td>&nbsp; </td>
+        <td>期限:</td>
+        <td th:text="${#dates.format(todo.limit_date, 'yyyy年MM月dd日')}"></td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
     </tr>
     <tr>
-        <td th:text="${todo.make_date}"></td>
+        <td>&nbsp; </td>
+        <td>作成日:</td>
+        <td th:text="${#dates.format(todo.make_date, 'yyyy年MM月dd日')}"></td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
     </tr>
+    <tr>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+    </tr>
+    <br>
 </table>
 </body>
 </html>

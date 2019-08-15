@@ -1,11 +1,9 @@
 package com.example.demo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.util.Date;
 
 
@@ -17,7 +15,11 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @Temporal(TemporalType.DATE)
     private Date limit_date;
+
+    @Temporal(TemporalType.DATE)
     private Date make_date;
     private Boolean finish;
 
