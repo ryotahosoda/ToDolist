@@ -66,7 +66,7 @@ public class TodoController{
                          @RequestParam("update") Long id,
                          @RequestParam("name") String name,
                          @RequestParam("limit_date") @DateTimeFormat(pattern = "yyyy/MM/dd") Date limit_date){
-        Todo a =todoService.updateNameandLimitDate(id,name,limit_date);
+        todoService.updateNameandLimitDate(id,name,limit_date);
         List todo = todoRepository.findAll();
         model.addAttribute("todolist", todo);
         return "index";
@@ -86,28 +86,27 @@ public class TodoController{
         buf.append(name);
         buf.append("%");
         List todo = todoRepository.findByNameLikeAndFinish(buf.toString(), false);
-        System.out.println("before update finish");
-        System.out.println(todo);
         int count = todo.size();
         model.addAttribute("data", todo);
         model.addAttribute("count",count);
+        model.addAttribute("search_data",name);
         return "search";
     }
 
-    @PostMapping(value = "/search", params = "finish")
-    public String search_finish(Model model, @RequestParam("finish") Long id,@RequestParam("data")List todo){
+    @PostMapping(value = "/search", params = "finish", produces="text/plain;charset=UTF-8")
+    public String search_finish(Model model, @RequestParam("finish") Long id,@RequestParam("search_name") String name){
         todoService.updateFinish(id);
+        StringBuilder buf = new StringBuilder();//後で関数にわける
+        buf.append("%");
+        buf.append(name);
+        buf.append("%");
+        List todo = todoRepository.findByNameLike(buf.toString());
         int count = todo.size();
         model.addAttribute("data", todo);
-        System.out.println("update finish");
         model.addAttribute("count",count);
+        model.addAttribute("search_data",name);
         return "search";
     }
-
-//    @PostMapping(value = "/search", params = "finish")
-//    public void search_finish(Model model, @RequestParam("finish") Long id){
-//        todoService.updateFinish(id);
-//    }
 
 }
 

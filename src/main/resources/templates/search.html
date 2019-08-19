@@ -9,8 +9,8 @@
 </head>
 <body>
 <form method="post" action="/search">
-    <input type="text" name="search_name">
-    <button type="submit" name="search" th:value="search_data">検索</button>
+    <input type="text" name="search_name" th:value="${search_data}">
+    <button type="submit" name="search" >検索</button>
 </form>
 
 <div class="search" th:if="${count} > 0">
@@ -27,11 +27,11 @@
                 <td rowspan="3">
                     <div th:if="${search.finish}">
                         <button type="submit" name="finish" th:value="${search.id}">完了</button>
-                        <input type="hidden" name="data" th:value="${data}">
+                        <input type="hidden" name="search_name" th:value="${search_data}">
                     </div>
                     <div th:unless="${search.finish}">
                         <button type="submit" name="finish" th:value="${search.id}">未完了</button>
-                        <input type="hidden" name="data" th:value="${data}">
+                        <input type="hidden" name="search_name" th:value="${search_data}">
                     </div>
                 </td>
             </form>
