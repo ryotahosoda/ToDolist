@@ -1,8 +1,5 @@
 package com.example.demo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -27,7 +24,6 @@ public class Todo {
         super();
     }
 
-    //日付の処理必要
     public Todo(String name, Date limit_date, Date make_date, Boolean finish) {
         super();
         this.name=name;
@@ -47,7 +43,8 @@ public class Todo {
     }
     public void setName(String name){
         this.name=name;
-    }    public Date getLimit_date(){
+    }
+    public Date getLimit_date(){
         return limit_date;
     }
     public void setLimit_date(Date limit_date){

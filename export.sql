@@ -16,6 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `sample`
+--
+
+DROP TABLE IF EXISTS `sample`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `sample` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sample`
+--
+
+LOCK TABLES `sample` WRITE;
+/*!40000 ALTER TABLE `sample` DISABLE KEYS */;
+INSERT INTO `sample` VALUES (1,'本を読む'),(2,'aaaaaa'),(3,'本を'),(4,'細田涼太'),(5,'おかしい'),(6,'出来た'),(7,'わーーーー'),(8,'おいいいいいい'),(9,'天才'),(10,'ですから');
+/*!40000 ALTER TABLE `sample` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `todo`
 --
 
@@ -30,7 +54,7 @@ CREATE TABLE `todo` (
   `finish` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +63,7 @@ CREATE TABLE `todo` (
 
 LOCK TABLES `todo` WRITE;
 /*!40000 ALTER TABLE `todo` DISABLE KEYS */;
-INSERT INTO `todo` VALUES (1,'TAの押印','2019-08-02','2019-07-25',_binary '\0'),(2,'ノート購入','2019-08-03','2019-07-26',_binary '\0'),(3,'学校に行く','2019-08-01','2019-07-31',_binary '\0'),(4,'家に帰る','2019-08-01','2019-07-31',_binary '\0'),(5,'寝る','2019-08-05','2019-08-01',_binary '\0'),(6,'遊ぶ','2019-08-01','2019-08-01',_binary '\0');
+INSERT INTO `todo` VALUES (1,'卓球する','2019-08-07','2019-07-25',_binary '\0'),(2,'ノート購入','2019-08-03','2019-07-26',_binary '\0'),(3,'学校に行く','2019-08-01','2019-07-31',_binary '\0'),(4,'家に帰る','2019-08-01','2019-07-31',_binary '\0'),(5,'寝る','2019-08-05','2019-08-01',_binary '\0'),(6,'遊ぶ','2019-08-01','2019-08-01',_binary '\0'),(7,'ご飯を食べる','2019-08-01','2019-08-05',_binary '\0'),(8,'readbook','2019-08-17','2019-08-14',_binary '\0'),(9,'全然終わらん','2019-08-17','2019-08-15',_binary '\0'),(10,'大変や','2019-08-19','2019-08-15',_binary '\0'),(11,'おなかがすいた','2019-08-20','2019-08-15',_binary '\0');
 /*!40000 ALTER TABLE `todo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +76,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-01 23:20:06
+-- Dump completed on 2019-08-19 10:32:01
