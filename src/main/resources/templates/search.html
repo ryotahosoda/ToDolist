@@ -37,10 +37,14 @@
             </form>
         </tr>
         <tr>
-            <td th:text="${search.limit_date}"></td>
+            <td th:text="${#dates.format(search.limitdate, 'yyyy年MM月dd日')}">
+                <p>期限</p>
+            </td>
         </tr>
         <tr>
-            <td th:text="${search.make_date}"></td>
+            <td th:text="${#dates.format(search.makedate, 'yyyy年MM月dd日')}">
+                <p>作成日</p>
+            </td>
         </tr>
     </table>
 </div>

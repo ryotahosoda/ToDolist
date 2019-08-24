@@ -17,3 +17,7 @@ height:200%;
 background-color:#248
 color:black;
 }
+
+span.same-err{
+color: red;
+}

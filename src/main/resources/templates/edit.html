@@ -9,12 +9,15 @@
 <body>
 <div class="borderline">
     ToDoの内容を変更します<br>
-    <form method="post" action="/">
+    <form method="post" action="/" th:object="${todo}">
         <p>ToDo名
-            <input type="text" name="name" th:value="${todolist.name}"></p>
+            <input class="nameToDo" type="text" name="name" th:value="${todolist.name}"></p>
+            <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            <span class="same-err" th:if="${err}!=null" th:text="${err}"></span>
         <p>期限
-            <input type="text" name="limit_date" th:value="${todolist.limit_date}"></p>
-        <button type="submit" name="update" th:value="${todolist.id}">更新</button>
+            <input class="limitToDo"type="text" name="limitdate" th:value="${#dates.format(todolist.limitdate, 'yyyy年MM月dd日')}"></p>
+            <span class="text-danger" th:if="${#fields.hasErrors('limitdate')}" th:errors="*{limitdate}"></span>
+        <button class="addToDo" type="submit" name="update" th:value="${todolist.id}">更新</button>
     </form>
 </div>
 

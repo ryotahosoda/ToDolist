@@ -37,8 +37,8 @@ public class TodoService {
         Todo todo = new Todo();
         Date make_date = new Date();
         todo.setName(name);
-        todo.setLimit_date(limit_date);
-        todo.setMake_date(make_date);
+        todo.setLimitdate(limit_date);
+        todo.setMakedate(make_date);
         todo.setFinish(false);
         return todoRepository.saveAndFlush(todo);
     }
@@ -47,7 +47,7 @@ public class TodoService {
     public Todo updateNameandLimitDate(Long id, String name, Date limit_date){
         Todo todo = getTodo(id);
         todo.setName(name);
-        todo.setLimit_date(limit_date);
+        todo.setLimitdate(limit_date);
         return todoRepository.saveAndFlush(todo);
     }
 

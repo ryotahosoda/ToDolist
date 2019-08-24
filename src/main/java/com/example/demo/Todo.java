@@ -1,7 +1,10 @@
 package com.example.demo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
+import javax.validation.constraints.*;
 
 
 @Entity
@@ -11,13 +14,20 @@ public class Todo {
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Size(min = 1,max = 30,message = "1文字以上30文字以下で入力してください")
     private String name;
 
+    @NotNull
     @Temporal(TemporalType.DATE)
-    private Date limit_date;
+    @DateTimeFormat(pattern = "yyyy年MM月dd日")
+    @Column(name = "limit_date")
+    private Date limitdate;
 
     @Temporal(TemporalType.DATE)
-    private Date make_date;
+    @Column(name = "make_date")
+    private Date makedate;
+
     private Boolean finish;
 
     public Todo() {
@@ -27,8 +37,8 @@ public class Todo {
     public Todo(String name, Date limit_date, Date make_date, Boolean finish) {
         super();
         this.name=name;
-        this.limit_date=limit_date;
-        this.make_date=make_date;
+        this.limitdate=limit_date;
+        this.makedate=make_date;
         this.finish=finish;
     }
 
@@ -44,17 +54,17 @@ public class Todo {
     public void setName(String name){
         this.name=name;
     }
-    public Date getLimit_date(){
-        return limit_date;
+    public Date getLimitdate(){
+        return limitdate;
     }
-    public void setLimit_date(Date limit_date){
-        this.limit_date=limit_date;
+    public void setLimitdate(Date limit_date){
+        this.limitdate=limit_date;
     }
-    public Date getMake_date(){
-        return make_date;
+    public Date getMakedate(){
+        return makedate;
     }
-    public void setMake_date(Date make_date){
-        this.make_date=make_date;
+    public void setMakedate(Date make_date){
+        this.makedate=make_date;
     }
     public Boolean getFinish(){ return finish; }
     public void setFinish(Boolean finish){
@@ -64,3 +74,4 @@ public class Todo {
 
 
 }
+
