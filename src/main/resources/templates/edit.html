@@ -7,19 +7,52 @@
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
-<div class="borderline">
-    ToDoの内容を変更します<br>
-    <form method="post" action="/" th:object="${todo}">
-        <p>ToDo名
-            <input class="nameToDo" type="text" name="name" th:value="${todolist.name}"></p>
+<br>
+<form method="post" action="/" th:object="${todo}">
+<table border="1" bordercolor="black" width="85%" align="center" style="border-collapse: collapse" rules="none">
+    <tr>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>ToDoの内容を変更します</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp; </td>
+        <td width="15%">ToDo名</td>
+        <td>
+            <input class="nameToDo" type="text" name="name" th:value="${todolist.name}">
             <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
             <span class="same-err" th:if="${err}!=null" th:text="${err}"></span>
-        <p>期限
-            <input class="limitToDo"type="text" name="limitdate" th:value="${#dates.format(todolist.limitdate, 'yyyy年MM月dd日')}"></p>
+        </td>
+        <td rowspan="2"><button class="addToDo" type="submit" name="update" th:value="${todolist.id}">更新</button></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp; </td>
+        <td>期限(yyyy年MM月dd日)</td>
+        <td>
+            <input class="limitToDo"type="text" name="limitdate" th:value="${#dates.format(todolist.limitdate, 'yyyy年MM月dd日')}">
             <span class="text-danger" th:if="${#fields.hasErrors('limitdate')}" th:errors="*{limitdate}"></span>
-        <button class="addToDo" type="submit" name="update" th:value="${todolist.id}">更新</button>
-    </form>
-</div>
+        </td>
+        <td>&nbsp; </td>
+    </tr>
+    <tr>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+    </tr>
 
+</table>
+</form>
 </body>
 </html>

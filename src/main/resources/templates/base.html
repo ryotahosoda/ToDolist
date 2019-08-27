@@ -1,6 +1,12 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
-<header>
-        <a th:href="@{/}">ToDoリスト</a>
-        <a th:href="@{/search}">検索</a>
-</header>
+
+<div class="base">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <span class="Todo-link">
+        <a class="Todo-link" th:href="@{/}">ToDoリスト</a>
+    </span>
+    <span class="Todo-search" style="float: right">
+        <a class="Todo-search" th:href="@{/search}">検索</a>
+    </span>
+</div>
 </html>

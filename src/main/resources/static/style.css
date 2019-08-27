@@ -8,16 +8,84 @@ width:70%;
 align:left;
 }
 
-input.addToDo{
-padding: 15px 30px;
-font-size: 1.5em;
+.addToDo{
+background-color:#99CCFF;
+font-size:large;
 font-weight: bold;
-width:50%;
-height:200%;
-background-color:#248
 color:black;
+width:150px;
+height:50px;
+border: thin solid black;
+}
+
+button.editToDo{
+background-color:#99FFB2;
+font-size:large;
+font-weight: bold;
+color:black;
+width:150px;
+height:50px;
+border: thin solid black;
+}
+
+button.finishToDo{
+background-color:#FFB299;
+font-size:large;
+font-weight: bold;
+color:black;
+width:150px;
+height:50px;
+border: thin solid black;
 }
 
 span.same-err{
 color: red;
+}
+
+a.Todo-link{
+padding-left:30px;
+text-decoration: none;
+font-weight:bold;
+font-size:25pt;
+color:black;
+}
+
+a.Todo-search{
+padding-right:30px;
+color:green;
+font-size:25pt;
+font-weight:bold;
+}
+
+div.base{
+border: thin solid black;
+margin-left:-8px;
+margin-right:-8px;
+background-color:rgb(204,255,255,0.5);
+}
+
+body{
+background-color:rgb(229,229,229,0.2);
+}
+
+table{
+background-color:white;
+}
+
+input.search{
+font-size:150%;
+height:43px;
+width:72%;
+margin-right:50px;
+margin-left:130px;
+}
+
+p.msg{
+color:red;
+padding-left:130px;
+font-weight:bold;
+}
+
+td.search-name{
+font-weight:bold;
 }

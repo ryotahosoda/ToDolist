@@ -4,52 +4,75 @@
     <meta charset="UTF-8">
     <title>検索</title>
     <div th:replace="base"></div>
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <link href="style.css" rel="stylesheet" type="text/css">
     <script src="/script.js" th:src="@{/script.js}"></script>
 </head>
 <body>
-<form method="post" action="/search">
-    <input type="text" name="search_name" th:value="${search_data}">
-    <button type="submit" name="search" >検索</button>
+<br>
+<form action="/search" method="post">
+        <input class="search" name="search_name" th:value="${search_data}" type="text">
+        <button class="addToDo" name="search" type="submit">検索</button>
 </form>
 
 <div class="search" th:if="${count} > 0">
-    <p th:text="'Todoが' + ${count} + '件見つかりました'"></p>
-    <table th:each="search: ${data}" border="5" style="border-collapse: collapse" rules="none">
+    <p class="msg" th:text="'Todoが' + ${count} + '件見つかりました'"></p>
+    <table align="center" border="1" bordercolor="black" rules="none" style="border-collapse: collapse" th:each="search: ${data}" width="85%">
         <tr>
-            <td th:text="${search.name}"></td>
-            <form method="post" action="/edit">
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>  </td>
+            <td>&nbsp; </td>
+        </tr>
+        <tr>
+            <td>&nbsp; </td>
+            <td colspan="2" class="search-name" th:text="${search.name}"></td>
+            <form action="/edit" method="post">
                 <td rowspan="3">
-                    <button type="submit" name="edit" th:value="${search.id}">編集</button>
+                    <button class="editToDo" name="edit" th:value="${search.id}" type="submit">編集</button>
                 </td>
             </form>
-            <form method="post" name="finish" action="/search">
+            <form action="/search" method="post" name="finish">
                 <td rowspan="3">
                     <div th:if="${search.finish}">
-                        <button type="submit" name="finish" th:value="${search.id}">完了</button>
-                        <input type="hidden" name="search_name" th:value="${search_data}">
+                        <button class="finishToDo" name="finish" th:value="${search.id}" type="submit">完了</button>
+                        <input name="search_name" th:value="${search_data}" type="hidden">
                     </div>
                     <div th:unless="${search.finish}">
-                        <button type="submit" name="finish" th:value="${search.id}">未完了</button>
-                        <input type="hidden" name="search_name" th:value="${search_data}">
+                        <button class="finishToDo" name="finish" th:value="${search.id}" type="submit">未完了</button>
+                        <input name="search_name" th:value="${search_data}" type="hidden">
                     </div>
                 </td>
             </form>
+            <td>&nbsp; </td>
         </tr>
         <tr>
+            <td>&nbsp; </td>
+            <td>期限:</td>
             <td th:text="${#dates.format(search.limitdate, 'yyyy年MM月dd日')}">
-                <p>期限</p>
             </td>
+            <td>&nbsp; </td>
         </tr>
         <tr>
-            <td th:text="${#dates.format(search.makedate, 'yyyy年MM月dd日')}">
-                <p>作成日</p>
-            </td>
+            <td>&nbsp; </td>
+            <td>作成日:</td>
+            <td th:text="${#dates.format(search.makedate, 'yyyy年MM月dd日')}"></td>
+            <td>&nbsp; </td>
         </tr>
+        <tr>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+        </tr>
+        <br>
     </table>
 </div>
 <div th:if="${count} == 0">
-    <p>対象のTodoは見つかりません</p>
+    <p class="msg">対象のTodoは見つかりません</p>
 </div>
 <div th:if="${count} == -1">
 </div>

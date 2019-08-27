@@ -54,7 +54,6 @@ public class TodoController {
                                @RequestParam("limitdate") String limit_date) throws ParseException {
 
         if (result.hasErrors()) {
-            System.out.println(result);
             List todo2 = todoRepository.findAllByOrderByMakedateDesc();
             model.addAttribute("todolist", todo2);
             return "index";
@@ -83,10 +82,14 @@ public class TodoController {
 
     //未完了、完了を押したとき　8/8 ok
     @PostMapping(value = "/", params = "finish")
-    public String finish(Model model, @RequestParam("finish") Long id) {
-        Todo a = todoService.updateFinish(id);//aいらない？？
-        List todo = todoRepository.findAllByOrderByMakedateDesc();
-        model.addAttribute("todolist", todo);
+    public String finish(@Valid @ModelAttribute Todo todo,
+                         BindingResult result,
+                         Model model, @RequestParam("finish") Long id) {
+        todoService.updateFinish(id);
+        List todo1 = todoRepository.findAllByOrderByMakedateDesc();
+        model.addAttribute("todolist", todo1);
+        int flag = 1;
+        model.addAttribute("flag", flag);
         return "index";
     }
 
