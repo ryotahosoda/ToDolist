@@ -38,7 +38,7 @@ height:50px;
 border: thin solid black;
 }
 
-span.same-err{
+.err{
 color: red;
 }
 
@@ -77,12 +77,12 @@ font-size:150%;
 height:43px;
 width:72%;
 margin-right:50px;
-margin-left:130px;
+margin-left:98px;
 }
 
 p.msg{
 color:red;
-padding-left:130px;
+padding-left:98px;
 font-weight:bold;
 }
 

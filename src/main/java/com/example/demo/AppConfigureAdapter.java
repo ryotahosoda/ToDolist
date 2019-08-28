@@ -32,4 +32,6 @@ public class AppConfigureAdapter implements WebMvcConfigurer {
         return bean;
     }
 
+
+
 }

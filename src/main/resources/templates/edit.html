@@ -26,21 +26,21 @@
     </tr>
     <tr>
         <td>&nbsp; </td>
-        <td width="15%">ToDo名</td>
+        <td width="20%">ToDo名</td>
         <td>
-            <input class="nameToDo" type="text" name="name" th:value="${todolist.name}">
-            <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-            <span class="same-err" th:if="${err}!=null" th:text="${err}"></span>
+            <input class="nameToDo" type="text" name="name" th:value="${todolist.name}"><br>
+            <span class="err" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            <span class="err" th:if="${err}!=null" th:text="${err}"></span>
         </td>
         <td rowspan="2"><button class="addToDo" type="submit" name="update" th:value="${todolist.id}">更新</button></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
         <td>&nbsp; </td>
-        <td>期限(yyyy年MM月dd日)</td>
+        <td width="20%">期限(yyyy年MM月dd日)</td>
         <td>
-            <input class="limitToDo"type="text" name="limitdate" th:value="${#dates.format(todolist.limitdate, 'yyyy年MM月dd日')}">
-            <span class="text-danger" th:if="${#fields.hasErrors('limitdate')}" th:errors="*{limitdate}"></span>
+            <input class="limitToDo"type="text" name="limitdate" th:value="${#dates.format(todolist.limitdate, 'yyyy年MM月dd日')}"><br>
+            <span class="err" th:if="${#fields.hasErrors('limitdate')}" th:errors="*{limitdate}"></span>
         </td>
         <td>&nbsp; </td>
     </tr>

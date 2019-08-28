@@ -1,14 +1,10 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.data.domain.Sort;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,8 +54,9 @@ public class TodoController {
             model.addAttribute("todolist", todo2);
             return "index";
         }
-        int errorcheck = errorcheck(name);
-        if (errorcheck == -1) {//error
+        String str = htmlEscape(name);
+        int errorcheck = errorcheck(str);
+        if (errorcheck == -1) {
             List todo3 = todoRepository.findAll();
             model.addAttribute("todolist", todo3);
             String err = "既に作成されています。";
@@ -71,8 +68,8 @@ public class TodoController {
         String make_date = sdf.format(new Date());
         Date makedate = sdf.parse(make_date);
         Date limitdate = sdf.parse(limit_date);
-        Todo addtodo = new Todo(name, limitdate, makedate, false);
-        todoRepository.saveAndFlush(addtodo);//レポジトリに保存する
+        Todo addtodo = new Todo(str, limitdate, makedate, false);
+        todoRepository.saveAndFlush(addtodo);
         List newTodo = todoRepository.findAllByOrderByMakedateDesc();
         model.addAttribute("todolist", newTodo);
         model.addAttribute("todoform", todo);
@@ -80,7 +77,6 @@ public class TodoController {
 
     }
 
-    //未完了、完了を押したとき　8/8 ok
     @PostMapping(value = "/", params = "finish")
     public String finish(@Valid @ModelAttribute Todo todo,
                          BindingResult result,
@@ -102,7 +98,6 @@ public class TodoController {
         return "edit";
     }
 
-    //更新する　8/8 ok
     @PostMapping(value = "/", params = "update")
     public String update(@Valid @ModelAttribute Todo todo,
                          BindingResult result,
@@ -116,10 +111,11 @@ public class TodoController {
             model.addAttribute("todolist", todo1);
             return "edit";
         }
-        int errorcheck = errorcheck(name);
+        String str = htmlEscape(name);
+        int errorcheck = errorcheck(str);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
         Date limitdate = sdf.parse(limit_date);
-        todoService.updateNameandLimitDate(id, name, limitdate);
+        todoService.updateNameandLimitDate(id, str, limitdate);
         List updatetodo = todoRepository.findAllByOrderByMakedateDesc();
         model.addAttribute("todolist", updatetodo);
         return index(model);
@@ -143,7 +139,7 @@ public class TodoController {
             return "search";
         }
         else{
-            StringBuilder buf = new StringBuilder();//後で関数にわける
+            StringBuilder buf = new StringBuilder();
             buf.append("%");
             buf.append(name);
             buf.append("%");
@@ -160,7 +156,7 @@ public class TodoController {
     @PostMapping(value = "/search", params = "finish", produces = "text/plain;charset=UTF-8")
     public String search_finish(Model model, @RequestParam("finish") Long id, @RequestParam("search_name") String name) {
         todoService.updateFinish(id);
-        StringBuilder buf = new StringBuilder();//後で関数にわける
+        StringBuilder buf = new StringBuilder();
         buf.append("%");
         buf.append(name);
         buf.append("%");
@@ -172,15 +168,45 @@ public class TodoController {
         return "search";
     }
 
-    public int errorcheck(String name) {//エラーメッセージも渡す
+    public int errorcheck(String name) {
         List todo = todoRepository.findByNameOrderByMakedateDesc(name);
         if (CollectionUtils.isEmpty(todo)) {
             int mes = 1;
             return mes;
         } else {
-            int mes = -1;//同じものが存在
+            int mes = -1;
             return mes;
         }
+    }
+
+    public String htmlEscape(String str){
+        StringBuffer result = new StringBuffer();
+        for (char c : str.toCharArray()){
+            switch (c){
+                case '&' :
+                    result.append("&amp;");
+                    break;
+                case '<' :
+                    result.append("&lt;");
+                    break;
+                case '>' :
+                    result.append("&gt;");
+                    break;
+                case '"':
+                    result.append("&quot;");
+                    break;
+                case '\'':
+                    result.append("&#39;");
+                    break;
+                case ' ' :
+                    result.append("&nbsp");
+                    break;
+                default:
+                    result.append(c);
+                    break;
+            }
+        }
+        return result.toString();
     }
 }
 

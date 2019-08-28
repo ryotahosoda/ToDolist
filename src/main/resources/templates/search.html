@@ -30,7 +30,7 @@
             <td colspan="2" class="search-name" th:text="${search.name}"></td>
             <form action="/edit" method="post">
                 <td rowspan="3">
-                    <button class="editToDo" name="edit" th:value="${search.id}" type="submit">編集</button>
+                    <button class="editToDo" name="edit" th:value="${search.id}" type="submit">+編集</button>
                 </td>
             </form>
             <form action="/search" method="post" name="finish">
